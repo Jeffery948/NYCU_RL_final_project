@@ -4,13 +4,13 @@
 We first train original BCQ algorithm with D4RL dataset to be our baseline. And we do ablation study based on six methods different from original BCQ.
 1. We replace the variational auto-encoder(VAE) with conditional generative adversarial nets(CGAN).
 2. They modify the original Clipped Double Q-learning:
-   $y = r + \gamma\max\limits_{a_i}\left[\min\limits_{j=1,2} Q_{\theta'_j} (s',a_i)\right]$
+   $$y = r + \gamma\max\limits_{a_i}\left[\min\limits_{j=1,2} Q_{\theta'_j} (s',a_i)\right]$$
 
    into:
-   $y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2} Q_{\theta'_j} (s',a_i) \right]$
+   $$y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2} Q_{\theta'_j} (s',a_i) \right]$$
    You can notice that if $\lambda =1$, it just the original Clipped Double Q-learning. And we use four Q-networks to do Clipped Quadruple Q-learning:
 
-   $y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2, 3, 4} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2, 3, 4} Q_{\theta'_j} (s',a_i) \right]$
+   $$y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2, 3, 4} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2, 3, 4} Q_{\theta'_j} (s',a_i) \right]$$
 
 3. We make the Actor and Critic shared the first layer.
 4. Remove the Actor(perturbation model)
