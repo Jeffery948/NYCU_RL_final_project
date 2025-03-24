@@ -4,13 +4,13 @@
 We first train original BCQ algorithm with D4RL dataset to be our baseline. And we do ablation study based on six methods different from original BCQ.
 1. We replace the variational auto-encoder(VAE) with conditional generative adversarial nets(CGAN).
 2. They modify the original Clipped Double Q-learning:
-   $$y = r + \gamma\max\limits_{a_i}\left[\min\limits_{j=1,2} Q_{\theta'_j} (s',a_i)\right]$$
+   $y = r + \gamma\max\limits_{a_i}\left[\min\limits_{j=1,2} Q_{\theta'_j} (s',a_i)\right]$
 
    into:
-   $$y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2} Q_{\theta'_j} (s',a_i) \right]$$
+   $y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2} Q_{\theta'_j} (s',a_i) \right]$
    You can notice that if $\lambda =1$, it just the original Clipped Double Q-learning. And we use four Q-networks to do Clipped Quadruple Q-learning:
 
-   $$y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2, 3, 4} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2, 3, 4} Q_{\theta'_j} (s',a_i) \right]$$
+   $y = r + \gamma\max\limits_{a_i}\left[\lambda\min\limits_{j=1,2, 3, 4} Q_{\theta_j'} (s',a_i) + (1-\lambda) \max\limits_{j=1,2, 3, 4} Q_{\theta'_j} (s',a_i) \right]$
 
 3. We make the Actor and Critic shared the first layer.
 4. Remove the Actor(perturbation model)
@@ -24,56 +24,4 @@ Because setup for D4RL is a bit complicated and it can't be installed in Windows
 You should first enter the conda virtual environment and install the required packages in requirements.txt one by one. Or you can just run the following:
 ```
 pip install -r requirements.txt
-```
-
-## Train
-- Original BCQ
-```
-python main.py
-```
-- BCQ with CGAN
-```
-python main.py --method BCQ_GAN
-```
-- BCQ with clipped quadruple Q-learning
-```
-python main.py --method BCQ_quadruple
-```
-- BCQ with shared layer
-```
-python main.py --method BCQ_shared
-```
-
-## Plot the result
-- Original BCQ
-```
-python plot.py
-```
-- BCQ with CGAN
-```
-python plot.py --method GAN
-```
-- BCQ with clipped quadruple Q-learning
-```
-python plot.py --method quadruple
-```
-- BCQ with shared layer
-```
-python plot.py --method shared
-```
-- Compare CGAN with baseline
-```
-python compare_with_baseline.py --method GAN
-```
-- Compare clipped quadruple Q-learning with baseline
-```
-python compare_with_baseline.py --method quadruple
-```
-- Compare shared layer with baseline
-```
-python compare_with_baseline.py --method shared
-```
-- Compare all results together
-```
-python compare.py
 ```
